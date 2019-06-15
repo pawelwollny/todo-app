@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TodoTask } from 'src/app/shared/models/todo-task';
 
 @Component({
   selector: 'app-list',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListComponent implements OnInit {
 
+  todoTasks: TodoTask[] = [];
+
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
+  trackBy(index: number, item: TodoTask): number {
+    return item.id;
+  }
 }

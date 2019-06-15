@@ -1,3 +1,10 @@
-<p>
-  list works!
-</p>
+<div class="todo__container">
+  <div class="todo__add">
+      <input type="text" class="todo__input" />
+  </div>
+
+  <ul class="todo__list">
+      <app-list-element *ngFor="let todoTask of todoTasks; trackBy: trackBy">
+      </app-list-element>
+  </ul>
+</div>
