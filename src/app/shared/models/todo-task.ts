@@ -1,14 +1,15 @@
 export class TodoTask {
-    candidate: string;
-    id: number;
-    isCompleted: boolean;
-    task: string;
+  candidate: string;
+  id: string;
+  isCompleted: number;
+  task: string;
 
-    constructor(input: any) {
-        this.candidate = input.candidate;
-        this.id = input.id;
-        this.isCompleted = input.is_completed;
-        this.task = input.task;
-        this.isCompleted = input.is_completed;
+  constructor(todoTaskFromApi: any) {
+    if (todoTaskFromApi != null) {
+      this.candidate = todoTaskFromApi.candidate;
+      this.id = todoTaskFromApi.id;
+      this.isCompleted = todoTaskFromApi.is_completed;
+      this.task = todoTaskFromApi.task;
     }
+  }
 }

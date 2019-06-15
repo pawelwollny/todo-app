@@ -8,14 +8,14 @@ import { TodoTask } from 'src/app/shared/models/todo-task';
 })
 export class ListComponent implements OnInit {
 
-  todoTasks: TodoTask[] = [];
+  todoTasks: TodoTask[];
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  trackBy(index: number, item: TodoTask): number {
+  trackBy(index: number, item: TodoTask): string {
     return item.id;
   }
 }

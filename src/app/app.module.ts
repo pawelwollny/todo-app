@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,6 +12,7 @@ import { TodoListModule } from './modules/todo-list/todo-list.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     TodoListModule
   ],
   providers: [],

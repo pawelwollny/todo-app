@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ListComponent } from './list.component';
+import { ListElementComponent } from '../list-element/list-element.component';
+import { TodoListService } from '../../todo-list.service';
+
 
 describe('ListComponent', () => {
   let component: ListComponent;
@@ -8,7 +10,8 @@ describe('ListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListComponent ]
+      declarations: [ ListComponent, ListElementComponent ],
+      providers: []
     })
     .compileComponents();
   }));
