@@ -51,8 +51,11 @@ export class ListComponent implements OnInit {
   }
 
   private getTasksFromApi(): void {
-    this.todoListService.getTodoTasks().subscribe(todoTasks => {
-      this.todoTasks = todoTasks;
-    });
+    this.todoListService.getTodoTasks().subscribe(
+      todoTasks => {
+        this.todoTasks = todoTasks;
+      },
+      error => this.todoTasks = []
+    );
   }
 }
