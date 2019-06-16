@@ -1,6 +1,7 @@
 <li>
-  <label>
-      <input type="checkbox" />
-      <input type="text" value="Post a new shot to Dribble" />
+  <label [formGroup]="editTaskForm">
+    <input type="checkbox" formControlName="isCompleted" (change)="submitEditForm()" />
+    <input type="text" formControlName="title" (keydown.enter)="submitEditForm()" />
+    <button class="delete__button" (click)="deleteTask()"></button>
   </label>
 </li>

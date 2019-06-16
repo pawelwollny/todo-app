@@ -1,10 +1,16 @@
 <div class="todo__container">
-  <div class="todo__add">
-      <input type="text" class="todo__input" />
+  <div [formGroup]="addTaskForm" class="todo__add">
+    <input formControlName="title" type="text" class="todo__input" (keydown.enter)="submitForm(addTaskForm)" />
   </div>
 
   <ul class="todo__list">
-      <app-list-element *ngFor="let todoTask of todoTasks; trackBy: trackBy">
-      </app-list-element>
+    <app-list-element *ngFor="let todoTask of todoTasks; trackBy: trackBy"
+                      [areInputsEnabled]="areInputsEnabled"
+                      [id]="todoTask.id"
+                      [isCompleted]="todoTask.isCompleted"
+                      [title]="todoTask.task"
+                      (taskModified)="submitForm($event)"
+                      (taskDeleted)="deleteTask($event)">
+    </app-list-element>
   </ul>
 </div>

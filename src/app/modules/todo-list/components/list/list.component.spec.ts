@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ListComponent } from './list.component';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ListElementComponent } from '../list-element/list-element.component';
-import { TodoListService } from '../../todo-list.service';
-
+import { ListComponent } from './list.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('ListComponent', () => {
   let component: ListComponent;
@@ -10,6 +10,7 @@ describe('ListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ ReactiveFormsModule, HttpClientModule ],
       declarations: [ ListComponent, ListElementComponent ],
       providers: []
     })

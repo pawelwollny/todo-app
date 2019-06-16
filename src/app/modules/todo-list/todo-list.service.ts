@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { TodoTask } from 'src/app/shared/models/todo-task';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -15,17 +16,27 @@ export class TodoListService {
   constructor(private httpClient: HttpClient) { }
 
   getTodoTasks(): Observable<TodoTask[]> {
-    return this.httpClient.get<any>(this.apiUrl).pipe(map(
-      todoTasks => {
-        if (todoTasks != null && [...todoTasks].length > 0) {
-          return todoTasks.map(todoTask => new TodoTask(todoTask));
+    return this.httpClient.get<any>(this.apiUrl).pipe(
+      map(
+        todoTasks => {
+          try {
+            return todoTasks.data.map(todoTask => new TodoTask(todoTask));
+          } catch (error) {
+            return [];
+          }
         }
-      }
-    ));
+      ),
+    );
   }
 
-  addTodoTask(todoTask: any): Observable<any> {
-    return this.httpClient.post<any>(this.apiUrl, todoTask);
+  addOrUpdateTodoTask(formGroup: FormGroup): Observable<any> {
+    const formData: FormData = new FormData();
+
+    formData.append('id', formGroup.get('id').value);
+    formData.append('title', formGroup.get('title').value);
+    formData.append('is_completed', formGroup.get('isCompleted').value ? '1' : '0');
+
+    return this.httpClient.post<any>(this.apiUrl, formData);
   }
 
   deleteTodoTask(todoTaskId: string): Observable<any> {

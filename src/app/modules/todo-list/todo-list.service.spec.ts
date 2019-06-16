@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
 import { TodoTask } from 'src/app/shared/models/todo-task';
 import { TodoListService } from './todo-list.service';
+import { FormBuilder } from '@angular/forms';
 
 let httpClientSpy: { get: jasmine.Spy, post: jasmine.Spy, delete: jasmine.Spy };
 let todoListService: TodoListService;
@@ -13,6 +14,7 @@ describe('TodoListService', () => {
 
     TestBed.configureTestingModule({
       providers: [
+        FormBuilder,
         TodoListService,
         { provide: HttpClient, useValue: spy }
       ]
@@ -27,24 +29,25 @@ describe('TodoListService', () => {
   });
 
   it('should get tasks list', () => {
-    const mockData: any = [
-      {
-        id: '5707a8c6-5104-48f5-b6b5-b30941740027',
-        candidate: 'szałkowska.weronika',
-        task: 'Complete the Angular application',
-        is_completed: 0
-      },
-      {
-        id: '63c7aa62-220d-4a3f-8644-f5c8b4a06029',
-        candidate: 'szałkowska.weronika',
-        task: 'Read the task requirements',
-        is_completed: 0
-      }
-    ];
+    const mockData: any = {
+      data: [
+        {
+          id: '5707a8c6-5104-48f5-b6b5-b30941740027',
+          candidate: 'szałkowska.weronika',
+          task: 'Complete the Angular application',
+          is_completed: 0
+        },
+        {
+          id: '63c7aa62-220d-4a3f-8644-f5c8b4a06029',
+          candidate: 'szałkowska.weronika',
+          task: 'Read the task requirements',
+          is_completed: 0
+        }
+    ]};
 
     const expectedTasks: TodoTask[] = [
-      new TodoTask(mockData[0]),
-      new TodoTask(mockData[1])
+      new TodoTask(mockData.data[0]),
+      new TodoTask(mockData.data[1])
     ];
 
     httpClientSpy.get.and.returnValue(of(mockData));
@@ -76,9 +79,8 @@ describe('TodoListService', () => {
   it('should add task', () => {
     const taskToAdd = {
       id: '5707a8c6-5104-48f5-b6b5-b30941740027',
-      candidate: 'szałkowska.weronika',
-      task: 'Complete the Angular application',
-      is_completed: 0
+      title: 'Complete the Angular application',
+      isCompleted: 0
     };
     const mockedResponse = {
       'status': 'success',
@@ -88,26 +90,36 @@ describe('TodoListService', () => {
         'is_completed': 0
       }]
     };
+    const formBuilder = TestBed.get(FormBuilder);
+    const formGroup = formBuilder.group(taskToAdd);
 
     httpClientSpy.post.and.returnValue(of(mockedResponse));
 
-    todoListService.addTodoTask(taskToAdd).subscribe(
+    todoListService.addOrUpdateTodoTask(formGroup).subscribe(
       successResponse => {
         expect(successResponse.status).toBe('success', 'response status check');
-        expect(taskToAdd).toEqual(jasmine.objectContaining(successResponse.data[0]), 'object in post response check');
+        expect(taskToAdd.id).toEqual(successResponse.data[0].id, 'object id in post response check');
+        expect(taskToAdd.title).toEqual(successResponse.data[0].task, 'object title in post response check');
+        expect(taskToAdd.isCompleted).toEqual(successResponse.data[0].is_completed, 'object isCompleted in post response check');
       }
     );
   });
 
   it('should return error 405 on add', () => {
-    const taskToAdd = {};
+    const taskToAdd = {
+      id: '',
+      title: '',
+      isCompleted: 0
+    };
     const errorResponse = new HttpErrorResponse({
       status: 405
     });
+    const formBuilder = TestBed.get(FormBuilder);
+    const formGroup = formBuilder.group(taskToAdd);
 
     httpClientSpy.post.and.returnValue(throwError(errorResponse));
 
-    todoListService.addTodoTask(taskToAdd).subscribe(
+    todoListService.addOrUpdateTodoTask(formGroup).subscribe(
       successResponse => fail('error expected'),
       error => expect(error.status).toBe(405)
     );

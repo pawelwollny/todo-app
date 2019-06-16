@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://tests.mpcreation.net/api/wollny.pawel'
+  apiUrl: 'https://cors-anywhere.herokuapp.com/http://tests.mpcreation.net/api/wollny.pawel'
 };
 
 /*
