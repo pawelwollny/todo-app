@@ -1,7 +1,7 @@
 <li>
   <label [formGroup]="editTaskForm">
-    <input type="checkbox" formControlName="isCompleted" (change)="submitEditForm()" />
-    <input type="text" formControlName="title" (keydown.enter)="submitEditForm()" />
+    <input class="checkbox" type="checkbox" formControlName="isCompleted" (change)="submitEditForm()" />
+    <input class="text__input" type="text" formControlName="title" (keydown.enter)="submitEditForm()" />
     <button class="delete__button" (click)="deleteTask()"></button>
   </label>
 </li>

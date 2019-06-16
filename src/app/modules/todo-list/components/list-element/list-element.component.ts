@@ -30,7 +30,6 @@ export class ListElementComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(console.log('changes: ', changes));
     const areInputsEnabled = changes.areInputsEnabled;
 
     if (areInputsEnabled != null &&

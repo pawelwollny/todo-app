@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { TodoTask } from 'src/app/shared/models/todo-task';
 import { TodoListService } from '../../todo-list.service';
 
@@ -41,7 +40,7 @@ export class ListComponent implements OnInit {
     });
   }
 
-  deleteTask(taskId: string) {
+  deleteTask(taskId: string): void {
     this.todoListService.deleteTodoTask(taskId).subscribe(successResponse => {
       this.getTasksFromApi();
     });
