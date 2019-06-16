@@ -35,10 +35,10 @@ describe('ListComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     const taskElements = compiled.querySelectorAll('ul li label');
 
-    expect(taskElements[0].querySelector('.checkbox').checked).toBe(false);
-    expect(taskElements[0].querySelector('.text__input').value).toBe('Complete the Angular application');
+    expect(taskElements[0].querySelector('input[type="checkbox"]').checked).toBe(false);
+    expect(taskElements[0].querySelector('input[type="text"]').value).toBe('Complete the Angular application');
 
-    expect(taskElements[1].querySelector('.checkbox').checked).toBe(true);
-    expect(taskElements[1].querySelector('.text__input').value).toBe('Read the task requirements');
+    expect(taskElements[1].querySelector('input[type="checkbox"]').checked).toBe(true);
+    expect(taskElements[1].querySelector('input[type="text"]').value).toBe('Read the task requirements');
   });
 });

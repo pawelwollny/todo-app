@@ -27,36 +27,6 @@
     margin: 0;
 }
 
-.todo__container li {
-    border-bottom: 1px solid #eeeeee;
-    line-height: 1.5;
-    padding: 0.5rem 1.25rem;
-}
-
-.todo__container li:hover {
-    background: #efefef;
-}
-.todo__container li:hover input[type="text"] {
-    background: #efefef;
-}
-
-.todo__container label {
-    display: flex;
-    align-items: center;
-}
-
-.todo__container input[type="checkbox"] {
-    margin-right: 0.5rem;
-    width: 1rem;
-    height: 1rem;
-    line-height: 1;
-}
-
-.todo__list input[type="text"] {
-    border: 0;
-    width: 100%;
-}
-
 .todo__container, .todo__container * {
     box-shadow: none;
     outline: none;

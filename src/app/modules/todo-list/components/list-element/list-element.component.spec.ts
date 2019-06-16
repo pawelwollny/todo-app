@@ -33,8 +33,8 @@ describe('ListElementComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     const taskElement = compiled.querySelector('li label');
 
-    expect(taskElement.querySelector('.checkbox').checked).toBe(false);
-    expect(taskElement.querySelector('.text__input').value).toBe('Complete the Angular application');
+    expect(taskElement.querySelector('input[type="checkbox"]').checked).toBe(false);
+    expect(taskElement.querySelector('input[type="text"]').value).toBe('Complete the Angular application');
   });
 
   it('should emit edit form', () => {
